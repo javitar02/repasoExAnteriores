@@ -8,14 +8,31 @@ public class Principal {
 
 	public static void main(String[] args) {
 		try {
-			Isla isla1=new Isla("Cayo Paloma", 0);
-			Personaje p1=new Personaje("PEPE", isla1, 11);
-			System.out.println(isla1);
-			System.out.println(p1);
-		} catch (JuegoException e) {
-			System.out.println(e.getMessage());
+			Isla isla = new Isla("MI ISLA", 4);
+			Personaje aldeana=new Personaje("ALDEANA", isla, 10);
+			Personaje canela=new Personaje("CANELA", isla, 12);
+			Personaje mickey=new Personaje("MICKEY", isla, 10);
+			Personaje minnie=new Personaje("MINNIE", isla, 15);
+			
+			mickey.recoger("PLATANO");
+			mickey.recoger("CAÑA DE PESCAR");
+			
+			mickey.regalar(minnie, "CAÑA DE PESCAR");
+		
+			System.out.println(mickey);
+			
+		} catch (JuegoException e1) {
+			System.out.println(e1.getMessage());
 		}
+			
+						
+			
+			
+		
+		
 
 	}
 
 }
+
+

@@ -5,12 +5,12 @@ public class Isla{
 	private static final int CAPACIDAD_MAXIMA_ISLA = 5;
 	private String nombre;
 	private int capacidad;
-	public int numPersonajes;
+	private int numPersonajes;
 	
 	
 	public Isla(String nombre, int capacidad) throws JuegoException {
 		this.nombre = nombre;
-		this.capacidad = 0;
+		this.capacidad = capacidad;
 		this.numPersonajes = 0;
 	
 	}
@@ -23,8 +23,8 @@ public class Isla{
 		return numPersonajes;
 	}
 
-	public void setNumPersonajes(int numPersonajes) throws JuegoException {
-		if(numPersonajes>CAPACIDAD_MAXIMA_ISLA) {
+	public void incrementarHabitantesIsla() throws JuegoException {
+		if(numPersonajes==CAPACIDAD_MAXIMA_ISLA) {
 			throw new JuegoException("Error, la capacidad de la isla esta al maximo");	
 		}
 		
@@ -36,18 +36,13 @@ public class Isla{
 			throw new JuegoException("Error, el numero de jugadores en una isla no puede"
 					+ "sobrepasar a la capacidad de la isla");	
 		}
-		this.numPersonajes = numPersonajes;
+		numPersonajes++;
 	}
 
 	public int getCapacidad() {
 		return capacidad;
 	}
-	
-	public void incrementarHabitantesIsla() throws JuegoException {
-		setNumPersonajes(numPersonajes);
-		numPersonajes++;
-		capacidad++;
-	}
+
 
 	
 	@Override

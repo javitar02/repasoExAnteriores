@@ -18,8 +18,8 @@ public class Personaje {
 
 	public Personaje(String nombre, Isla isla, int edad) throws JuegoException {
 		this.nombre = nombre;
-		this.isla = isla;
-		this.edad=edad;
+		setIsla(isla);
+		setEdad(edad);
 		
 	}
 	
@@ -39,10 +39,68 @@ public class Personaje {
 		return isla;
 	}
 
-	public void setIsla(Isla isla) {
+	public void setIsla(Isla isla) throws JuegoException{
+		if(isla.equals(this.getIsla())) {
+			throw new JuegoException("La isla esta ya creada");
+		}
+		isla.incrementarHabitantesIsla();
 		this.isla = isla;
 	}
 
+	public void regalar (Personaje otro, String pertenencia) throws JuegoException {
+		boolean encontrada=false;
+		int posicionPertencia=0;
+		
+		if ( !this.isla.equals(otro.isla)) {
+			throw new JuegoException("No puedes regalar a un personaje si  estais en una isla distinta");
+		}
+		
+		for (int i = 0; i < arrayPertenencias.length && !encontrada; i++) {
+			
+			if (pertenencia.equals( arrayPertenencias[i])) {
+				encontrada=true;
+				posicionPertencia=i;
+				
+			}
+		}
+		if (!encontrada) {
+			throw new JuegoException("No puede regalar el objeto " + pertenencia + " porque no lo tiene");
+		}
+		
+		//busca la pertenencia y  si la encuentra la pone a null
+		
+		otro.recoger(pertenencia);
+		arrayPertenencias[posicionPertencia]=null; //SUELTA LA PERTENECIA AL FINAL, SI NO HAY ERROR.
+		pertenenciasEnComun --; // como utilizo el mismo método para regalar y recoger resto ahora para que el número de objetos quede igual
+	}
+	
+	public void recoger( String nuevaPertenencia) throws JuegoException {
+		
+		int posicionHueco=buscarHueco();
+		
+		arrayPertenencias[posicionHueco]=nuevaPertenencia;
+		
+		//Incrementamos la variable estática total de objetos recogidos
+		pertenenciasEnComun++;
+	}
+	
+	private int buscarHueco() throws JuegoException {
+		
+		int posicionHueco=-1;
+		for (int i = 0; i < arrayPertenencias.length && posicionHueco==-1; i++) {
+			
+			if (arrayPertenencias[i]==null) {
+				posicionHueco=i; //sale del bucle
+			}
+		}
+		if (posicionHueco ==-1) {
+			throw new JuegoException("El personaje " + this.nombre + " no tiene espacio para más objetos");
+		}
+		
+		return posicionHueco;
+		
+	}
+	
 	public int getEdad() {
 		return edad;
 	}

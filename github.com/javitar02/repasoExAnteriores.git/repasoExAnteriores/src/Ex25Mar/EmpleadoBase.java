@@ -9,7 +9,7 @@ public class EmpleadoBase extends Empleado {
 	EspecialidadEmpleadoBase especialidad;
 	
 	public EmpleadoBase(String dni, String nombre,EspecialidadEmpleadoBase especialidad) throws EmpresaException {
-		super(dni, nombre,sueldoPorPuesto(especialidad));
+		super(dni, nombre,sueldoInicialPorPuesto(especialidad));
 		this.especialidad=especialidad;
 	}
 	
@@ -17,8 +17,9 @@ public class EmpleadoBase extends Empleado {
 		return especialidad;
 	}
 	
-	public static int sueldoPorPuesto(EspecialidadEmpleadoBase especialidad) throws EmpresaException{
+	public static int sueldoInicialPorPuesto(EspecialidadEmpleadoBase especialidad) throws EmpresaException{
 		int sueldoInicial=0;
+		
 		switch(especialidad) {
 		case ADMINISTRATIVO:
 			sueldoInicial=SUELDO_INICIAL_ADMINISTRATIVO;
